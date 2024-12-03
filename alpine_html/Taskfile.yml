@@ -14,7 +14,7 @@ tasks:
       - ./bin/tailwindcss -i styles/tailwind.css -o assets/main.css
     cmds:
       - cargo build --release
-  init-tailwind:
+  install-tailwind-mac:
     cmds:
       - ./bin/init-tailwind-mac
     desc: "Download and create tailwindcss binary"
