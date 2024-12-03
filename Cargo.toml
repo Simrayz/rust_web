@@ -1,0 +1,3 @@
+[workspace]
+members = ["alpine_html"]
+resolver = "2"
