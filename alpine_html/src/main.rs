@@ -21,11 +21,11 @@ async fn main() {
         // `GET /` goes to `root`
         .route("/", get(root))
         .route("/users", get(users))
-        .layer(LiveReloadLayer::new())
         .nest_service(
             "/assets",
             ServeDir::new(format!("{}/assets", assets_path.to_str().unwrap())),
-        );
+        )
+        .layer(LiveReloadLayer::new());
 
     // run our app with hyper, listening globally on port 4000
     let listener = tokio::net::TcpListener::bind("0.0.0.0:4000").await.unwrap();

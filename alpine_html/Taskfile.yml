@@ -8,10 +8,10 @@ tasks:
       - cargo watch -x run
   tailwind-watch:
     cmds:
-      - ./bin/tailwindcss -i styles/tailwind.css -o assets/main.css --watch
+      - ./bin/tailwindcss -i styles/tailwind.css -o public/main.css --watch
   build:
     preconditions:
-      - ./bin/tailwindcss -i styles/tailwind.css -o assets/main.css
+      - ./bin/tailwindcss -i styles/tailwind.css -o public/main.css
     cmds:
       - cargo build --release
   install-tailwind-mac:
