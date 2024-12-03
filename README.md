@@ -1,6 +1,6 @@
-# Rust Projects
+# Rust Web Projects
 
-This repository is a monorepo that contains multiple rust projects used for learning and testing out new technologies.
+This repository is a monorepo that contains multiple rust web projects used for learning and testing out new technologies.
 
 ## Project listing
 
