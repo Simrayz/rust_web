@@ -1,5 +1,7 @@
 use rust_html::{rhtml, Render, Template};
 
+use super::button::ButtonColor;
+
 pub struct UserTableComponent {}
 
 impl Render for UserTableComponent {
@@ -16,6 +18,7 @@ impl Render for UserTableComponent {
                         <th class="{header_cell_class}">Name</th>
                         <th class="{header_cell_class}">Age</th>
                         <th class="{header_cell_class}">Job</th>
+                        <th class="{header_cell_class}">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -23,21 +26,26 @@ impl Render for UserTableComponent {
                         <td class="{cell_class}">John Doe</td>
                         <td class="{cell_class}">30</td>
                         <td class="{cell_class}">Developer</td>
+                        <td class="{cell_class}"><button class="{ButtonColor::Primary}">Edit</button></td>
+
                     </tr>
                     <tr class="{row_class}">
                         <td class="{cell_class}">Jane Doe</td>
                         <td class="{cell_class}">25</td>
                         <td class="{cell_class}">Designer</td>
+                        <td class="{cell_class}"><button class="{ButtonColor::Primary}">Edit</button></td>
                     </tr>
                     <tr class="{row_class}">
                         <td class="{cell_class}">Bob Smith</td>
                         <td class="{cell_class}">40</td>
                         <td class="{cell_class}">Manager</td>
+                        <td class="{cell_class}"><button class="{ButtonColor::Primary}">Edit</button></td>
                     </tr>
                     <tr class="{row_class}">
                         <td class="{cell_class}">Sarah Johnson</td>
                         <td class="{cell_class}">35 years</td>
                         <td class="{cell_class}">Sales</td>
+                        <td class="{cell_class}"><button class="{ButtonColor::Primary}">Edit</button></td>
                     </tr>
                 </tbody>
             </table>

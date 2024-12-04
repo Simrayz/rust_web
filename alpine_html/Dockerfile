@@ -11,8 +11,7 @@ COPY --from=planner /app/recipe.json recipe.json
 RUN cargo chef cook --release --recipe-path recipe.json
 # Build application
 COPY . .
-RUN ./bin/init-tailwind-linux
-RUN ./bin/tailwindcss -i styles/tailwind.css -o assets/main.css
+RUN ./bin/init-tailwind-linux && ./bin/tailwindcss -i styles/tailwind.css -o assets/main.css
 RUN cargo build --release --bin alpine_html
 
 # We do not need the Rust toolchain to run the binary!

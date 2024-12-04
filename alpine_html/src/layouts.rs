@@ -10,6 +10,7 @@ pub fn base_html(content: Template) -> Template {
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <link href="/assets/main.css" rel="stylesheet" />
                 <link href="https://rsms.me/inter/inter.css" rel="stylesheet" />
+                <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
             </head> 
             <body class="bg-gray-100 dark:bg-gray-900">
                 {content}
