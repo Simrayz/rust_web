@@ -14,6 +14,14 @@ pub async fn home_page() -> impl IntoResponse {
                     The truth is that the universe has been answering you all of your life, but you cannot receive the answers unless you are awake.
                 </blockquote>
             </div>
+            <button
+                type="button"
+                hx-get="/api/hello"
+                hx-swap="innerHtml"
+                class="{ButtonColor::Info}"
+            >
+                Say hello
+            </button>
             <div class="space-y-4">
                 <h3 class="text-lg">Some interesting boxes</h3>
                 {grid_layout()}

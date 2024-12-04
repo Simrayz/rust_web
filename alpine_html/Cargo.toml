@@ -5,10 +5,12 @@ edition = "2021"
 
 [dependencies]
 axum = { version = "0.7.9", features = ["macros"] }
-rust_html = { version = "1.1.4", features = ["axum"]}
+rust_html = { version = "1.1.5", features = ["axum"]}
 tokio = { version = "1.41.1", features = ["full"] }
 tower = "0.5.1"
-tower-http = { version = "0.6.2", features = ["fs"] }
+tower-http = { version = "0.6.2", features = ["fs", "trace"] }
 tower-livereload = "0.9.5"
-tracing = "0.1.41"
-tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
+miette.workspace = true
+test-log.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true

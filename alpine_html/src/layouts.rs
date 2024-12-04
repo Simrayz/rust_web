@@ -11,6 +11,7 @@ pub fn base_html(content: Template) -> Template {
                 <link href="/assets/main.css" rel="stylesheet" />
                 <link href="https://rsms.me/inter/inter.css" rel="stylesheet" />
                 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+                <script src="https://unpkg.com/htmx.org@2.0.3" integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq" crossorigin="anonymous"></script>
             </head> 
             <body class="bg-gray-100 dark:bg-gray-900">
                 {content}
