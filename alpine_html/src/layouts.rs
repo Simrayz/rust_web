@@ -27,6 +27,7 @@ pub fn main_layout(content: Template, active_page: &str) -> Template {
         <div class="flex items-center gap-2">
             {link_component("/", "Home", active_page)}
             {link_component("/users", "Users", active_page)}
+            {link_component("/todos", "Todos", active_page)}
         </div>
     </header>
     <main class="container mx-auto text-gray-900 dark:text-gray-100 px-4">

@@ -46,6 +46,7 @@ dependencies = [
  "axum",
  "miette",
  "rust_html",
+ "serde",
  "test-log",
  "tokio",
  "tower",

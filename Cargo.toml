@@ -9,3 +9,4 @@ test-log = { version = "0.2.13", default-features = false, features = [
     "trace",
 ] }
 miette = { version = "7.4", features = ["fancy"] }
+serde = { version = "1.0.215", features = ["derive"] }

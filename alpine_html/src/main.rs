@@ -1,4 +1,6 @@
-use axum::{routing::get, Router};
+use std::sync::{Arc, Mutex};
+
+use axum::{routing::get, routing::post, Router};
 
 mod components;
 mod layouts;
@@ -11,6 +13,10 @@ use tower_http::trace::{self, TraceLayer};
 use tower_livereload::LiveReloadLayer;
 use tracing::Level;
 
+struct AppState {
+    todos: Mutex<Vec<String>>,
+}
+
 #[tokio::main]
 async fn main() -> miette::Result<()> {
     // initialize tracing
@@ -20,8 +26,13 @@ async fn main() -> miette::Result<()> {
         .init();
 
     let assets_path = std::env::current_dir().unwrap();
+    let api_router = Router::new()
+        .route("/hello", get(hello_from_the_server))
+        .route("/todos", post(add_todo).delete(clear_todos));
 
-    let api_router = Router::new().route("/hello", get(hello_from_the_server));
+    let app_state = Arc::new(AppState {
+        todos: Mutex::new(vec![]),
+    });
 
     // build our application with a route
     let app = Router::new()
@@ -29,6 +40,8 @@ async fn main() -> miette::Result<()> {
         .nest("/api", api_router)
         .route("/", get(home_page))
         .route("/users", get(users_page))
+        .route("/todos", get(todos_page))
+        .with_state(app_state)
         .nest_service(
             "/assets",
             ServeDir::new(format!("{}/assets", assets_path.to_str().unwrap())),

@@ -14,3 +14,4 @@ miette.workspace = true
 test-log.workspace = true
 tracing.workspace = true
 tracing-subscriber.workspace = true
+serde.workspace = true
