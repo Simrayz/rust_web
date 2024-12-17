@@ -1,0 +1,8 @@
+#!/bin/sh
+echo "📦 Downloading latest tailwind version"
+curl -sLO https://github.com/tailwindlabs/tailwindcss/releases/latest/download/tailwindcss-macos-arm64
+echo "👷‍♂️ Creating executable tailwindcss binary"
+chmod +x tailwindcss-macos-arm64
+mkdir -p bin && mv tailwindcss-macos-arm64 bin/tailwindcss
+echo "✅ Done"
+

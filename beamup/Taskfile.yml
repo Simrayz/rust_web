@@ -1,0 +1,20 @@
+version: "3"
+
+tasks:
+  dev:
+    deps: [watch, tailwind-watch]
+  watch:
+    cmds:
+      - cargo watch -x run
+  tailwind-watch:
+    cmds:
+      - ./bin/tailwindcss -i styles/tailwind.css -o assets/main.css --watch
+  build:
+    preconditions:
+      - ./bin/tailwindcss -i styles/tailwind.css -o assets/main.css
+    cmds:
+      - cargo build --release
+  install-tailwind-mac:
+    cmds:
+      - ./bin/init-tailwind-mac
+    desc: "Download and create tailwindcss binary"

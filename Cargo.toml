@@ -1,5 +1,5 @@
 [workspace]
-members = ["alpine_html"]
+members = ["alpine_html", "beamup"]
 resolver = "2"
 
 [workspace.dependencies]
