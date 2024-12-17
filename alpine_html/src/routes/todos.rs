@@ -4,10 +4,11 @@ use rust_html::{rhtml, Template, TemplateGroup};
 use std::sync::Arc;
 
 use crate::components::*;
-use crate::main_layout;
 use crate::AppState;
 
-pub async fn todos_page(State(state): State<Arc<AppState>>) -> impl IntoResponse {
+use super::utils::{router_fragment_stack, HxReq, RouteOptions};
+
+pub async fn todos_page(State(state): State<Arc<AppState>>, hx_req: HxReq) -> impl IntoResponse {
     let todos = state.todos.lock().unwrap();
     let todos = render_todos(todos.clone());
 
@@ -22,7 +23,13 @@ pub async fn todos_page(State(state): State<Arc<AppState>>) -> impl IntoResponse
     "#
     };
 
-    main_layout(result, "/todos")
+    router_fragment_stack(
+        hx_req,
+        RouteOptions {
+            fragment: result,
+            target: "/todos",
+        },
+    )
 }
 
 fn todo_form() -> Template {

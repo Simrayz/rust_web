@@ -1,8 +1,10 @@
 use std::sync::{Arc, Mutex};
 
+use axum::http::Request;
 use axum::{routing::get, routing::post, Router};
 
 mod components;
+mod constants;
 mod layouts;
 mod routes;
 
@@ -15,6 +17,10 @@ use tracing::Level;
 
 struct AppState {
     todos: Mutex<Vec<String>>,
+}
+
+fn not_htmx_predicate<T>(req: &Request<T>) -> bool {
+    !req.headers().contains_key("hx-request")
 }
 
 #[tokio::main]
@@ -46,7 +52,7 @@ async fn main() -> miette::Result<()> {
             "/assets",
             ServeDir::new(format!("{}/assets", assets_path.to_str().unwrap())),
         )
-        .layer(LiveReloadLayer::new())
+        .layer(LiveReloadLayer::new().request_predicate(not_htmx_predicate))
         .layer(
             TraceLayer::new_for_http()
                 .make_span_with(trace::DefaultMakeSpan::new().level(Level::INFO))

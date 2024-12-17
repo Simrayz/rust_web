@@ -1,3 +1,4 @@
+use crate::constants::*;
 use rust_html::{rhtml, Template};
 
 pub fn base_html(content: Template) -> Template {
@@ -24,13 +25,15 @@ pub fn main_layout(content: Template, active_page: &str) -> Template {
     let layout: Template = rhtml! { r#"
     <header class="flex items-center gap-8 container mx-auto py-4 px-4">
         <h1 class="text-3xl text-blue-500 font-bold underline">Alpine HTML</h1>
-        <div class="flex items-center gap-2">
-            {link_component("/", "Home", active_page)}
-            {link_component("/users", "Users", active_page)}
-            {link_component("/todos", "Todos", active_page)}
-        </div>
+            <nav class="flex items-center gap-2" hx-target={ROUTER_CONTENT_ID} hx-push-url="true" hx-boost="true">
+                {nav_fragments(active_page)}
+            </nav>
     </header>
-    <main class="container mx-auto text-gray-900 dark:text-gray-100 px-4">
+    <main 
+        id="{ROUTER_CONTENT}"
+        hx-target={ROUTER_CONTENT_ID}
+        hx-boost="true"
+        class="container mx-auto text-gray-900 dark:text-gray-100 px-4">
         {content}
     </main>
     "# };
@@ -38,7 +41,15 @@ pub fn main_layout(content: Template, active_page: &str) -> Template {
     base_html(layout)
 }
 
-pub fn link_component(href: &str, text: &str, active_path: &str) -> Template {
+pub fn nav_fragments(active_page: &str) -> Template {
+    rhtml! { r#"
+    {nav_link("/", "Home", active_page)}
+    {nav_link("/users", "Users", active_page)}
+    {nav_link("/todos", "Todos", active_page)}
+    "#}
+}
+
+pub fn nav_link(href: &str, text: &str, active_path: &str) -> Template {
     let active_class = "from-blue-100 to-blue-400 dark:from-blue-900 dark:to-blue-700";
     let dynamic_classes = {
         if active_path == href {
@@ -48,6 +59,6 @@ pub fn link_component(href: &str, text: &str, active_path: &str) -> Template {
         }
     };
     rhtml! { r#"
-        <a href="{href}" class="text-blue-500 dark:text-blue-200 px-2 py-1 rounded-md {dynamic_classes}">{text}</a>
+        <button hx-get="{href}" class="text-blue-500 dark:text-blue-200 px-2 py-1 rounded-md {dynamic_classes}">{text}</button>
     "# }
 }
