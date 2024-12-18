@@ -31,13 +31,13 @@ fn hero_card() -> Template {
         "text-center h-64 rounded-md",
         "flex flex-col items-center justify-center gap-4",
         // "bg-gradient-to-tr from-indigo-900 to-blue-800",
-        "dot-pattern shadow-md",
+        "dot-pattern border border-indigo-200 dark:border-none dark:shadow-md",
     ]);
 
     rhtml! { r#"
         <div class="{styles}">
             <h1 class="text-4xl text-indigo-500">Welcome to <span class="font-bold">{APP_NAME}</span></h1>
-            <p class="text-lg text-gray-200">No accounts, just connections.</p>
+            <p class="text-lg text-gray-800 dark:text-gray-200">No accounts, just connections.</p>
         </div>
     "# }
 }

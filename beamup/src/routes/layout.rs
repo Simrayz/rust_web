@@ -28,7 +28,7 @@ pub fn main_layout(content: Template, active_page: &str) -> Template {
 
     let layout: Template = rhtml! { r#"
     <header class="flex items-center gap-8 container mx-auto py-4 px-4">
-        <a href="/" class="text-3xl text-indigo-500 font-bold">Beamup</a>
+        <a href="/" class="text-3xl text-indigo-500 font-bold">{APP_NAME}</a>
         <nav class="flex items-center gap-2" hx-target={ROUTER_CONTENT_ID} hx-push-url="true" hx-boost="true">
             {nav_fragments(active_page)}
         </nav>
