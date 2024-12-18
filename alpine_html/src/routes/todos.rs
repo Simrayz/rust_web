@@ -57,7 +57,6 @@ fn todo_form() -> Template {
             <button
                 type="submit"
                 class="{ButtonColor::Success}"
-                @
             >
                 Add
             </button>

@@ -172,6 +172,7 @@ dependencies = [
  "miette",
  "rust_html",
  "serde",
+ "serde_json",
  "test-log",
  "tokio",
  "tower",

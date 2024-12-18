@@ -17,7 +17,7 @@ impl fmt::Display for ButtonColor {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let base_class = "cursor-pointer whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium tracking-wide transition hover:opacity-75 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 disabled:opacity-75 disabled:cursor-not-allowed dark:focus-visible:outline-white";
         let class = match self {
-            ButtonColor::Primary => "bg-black dark:bg-white dark:text-black dark:focus-visible:outline-white",
+            ButtonColor::Primary => "bg-black text-white dark:bg-white dark:text-black dark:focus-visible:outline-white",
             ButtonColor::Secondary => "bg-neutral-800 text-white focus-visible:outline-neutral-800 dark:bg-neutral-300 dark:text-black dark:focus-visible:outline-neutral-300",
             ButtonColor::Alternate => "bg-neutral-50 text-neutral-900 focus-visible:outline-neutral-50 dark:bg-neutral-900 dark:text-white dark:focus-visible:outline-neutral-900",
             ButtonColor::Info => "bg-sky-500 text-white focus-visible:outline-sky-500 dark:bg-sky-500 dark:text-white dark:focus-visible:outline-sky-500",

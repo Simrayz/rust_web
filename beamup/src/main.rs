@@ -1,6 +1,10 @@
-use axum::{http::Request, routing::get, Router};
+use axum::{
+    http::Request,
+    routing::{get, post},
+    Router,
+};
 use beamup::routes::{
-    events::{events_page, new_event_page},
+    events::{create_event_handler, edit_event_page, events_page, new_event_page},
     home_page, landing_page,
 };
 use tower_http::{
@@ -23,7 +27,9 @@ async fn main() -> miette::Result<()> {
         .init();
 
     let assets_path = std::env::current_dir().unwrap();
-    let api_router = Router::new().route("/", get(hello_from_the_server));
+    let api_router = Router::new()
+        .route("/", get(hello_from_the_server))
+        .route("/events", post(create_event_handler));
 
     // build our application with a route
     let app = Router::new()
@@ -33,6 +39,7 @@ async fn main() -> miette::Result<()> {
         .route("/home", get(home_page))
         .route("/events", get(events_page))
         .route("/events/new", get(new_event_page))
+        .route("/events/edit/:id", get(edit_event_page))
         .nest_service(
             "/assets",
             ServeDir::new(format!("{}/assets", assets_path.to_str().unwrap())),
