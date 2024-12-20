@@ -27,7 +27,7 @@ pub fn main_layout(content: Template, active_page: &str) -> Template {
     // get current year in rust
 
     let layout: Template = rhtml! { r#"
-    <header class="flex items-center gap-8 container mx-auto py-4 px-4">
+    <header class="flex items-center gap-8 container max-w-screen-lg mx-auto py-4 px-4">
         <a href="/" class="text-3xl text-indigo-500 font-bold">{APP_NAME}</a>
         <nav class="flex items-center gap-2" hx-target={ROUTER_CONTENT_ID} hx-push-url="true" hx-boost="true">
             {nav_fragments(active_page)}
@@ -37,7 +37,7 @@ pub fn main_layout(content: Template, active_page: &str) -> Template {
         id="{ROUTER_CONTENT}"
         hx-target={ROUTER_CONTENT_ID}
         hx-boost="true"
-        class="flex-1 container mx-auto text-gray-900 dark:text-gray-100 px-4">
+        class="flex-1 container mx-auto max-w-screen-lg text-gray-900 dark:text-gray-100 px-4">
         {content}
     </main>
     <footer class="flex flex-col items-center py-2 gap-1 text-gray-600 dark:text-gray-400 ">
