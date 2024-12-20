@@ -1,8 +1,9 @@
 use axum::{
     extract::{Form, Path},
     http::{Response, StatusCode},
-    response::{IntoResponse, Redirect},
+    response::IntoResponse,
 };
+use chrono::{NaiveDate, NaiveDateTime, NaiveTime};
 use rust_html::{rhtml, Template};
 
 use super::utils::{router_fragment_stack, HxReq, RouteOptions};
@@ -90,9 +91,19 @@ pub async fn new_event_page(req: HxReq) -> impl IntoResponse {
                     <label for="description" class="w-fit pl-0.5 text-sm">Description</label>
                     <textarea id="description" name="description" required placeholder="Describe the event" class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2.5 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75 dark:border-neutral-700 dark:bg-neutral-900/50 dark:focus-visible:outline-white" rows="3"></textarea>
                 </div>
-                <div class="flex w-full max-w-xs flex-col gap-1 text-neutral-600 dark:text-neutral-300">
+                <div class="flex w-full flex-col gap-1 text-neutral-600 dark:text-neutral-300">
                     <label for="location" class="w-fit pl-0.5 text-sm">Location</label>
                     <input id="location" required placeholder="Where is the event?" type="text" class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75 dark:border-neutral-700 dark:bg-neutral-900/50 dark:focus-visible:outline-white" name="location" />
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="flex-1 flex flex-col gap-1 text-neutral-600 dark:text-neutral-300">
+                        <label for="date" class="w-fit pl-0.5 text-sm">Date</label>
+                        <input id="date" name="date" required type="date" class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75 dark:border-neutral-700 dark:bg-neutral-900/50 dark:focus-visible:outline-white" />
+                    </div>
+                    <div class="flex-1 flex flex-col gap-1 text-neutral-600 dark:text-neutral-300">
+                        <label for="time" class="w-fit pl-0.5 text-sm">Time</label>
+                        <input id="time" name="time" required type="time" class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75 dark:border-neutral-700 dark:bg-neutral-900/50 dark:focus-visible:outline-white" />
+                    </div>
                 </div>
                 <div class="flex justify-end gap-4">
                     <input
@@ -120,6 +131,8 @@ pub struct EventRequest {
     name: String,
     description: String,
     location: String,
+    time: NaiveTime,
+    date: NaiveDate,
 }
 
 #[derive(serde::Serialize, Debug)]
@@ -128,6 +141,7 @@ pub struct Event {
     name: String,
     description: String,
     location: String,
+    time: NaiveDateTime,
 }
 
 impl Event {
@@ -137,6 +151,7 @@ impl Event {
             name: request.name,
             description: request.description,
             location: request.location,
+            time: NaiveDateTime::new(request.date, request.time),
         }
     }
 }
@@ -153,7 +168,6 @@ pub async fn create_event_handler(Form(event): Form<EventRequest>) -> impl IntoR
 
     response
 }
-/******  937842b0-9905-47f9-a1e4-f35833827626  *******/
 
 pub async fn edit_event_page(Path(id): Path<String>, req: HxReq) -> impl IntoResponse {
     let template: Template = rhtml! { r#"
@@ -167,13 +181,4 @@ pub async fn edit_event_page(Path(id): Path<String>, req: HxReq) -> impl IntoRes
             target: "/events/edit/{id}",
         },
     )
-}
-
-fn success_message(title: &str, message: &str) -> Template {
-    rhtml! { r#"
-        <div class="space-y-1 border-l-4 rounded-r-md bg-green-200 text-green-800 border-green-400 p-2 dark:bg-green-900 dark:text-green-100 dark:border-green-700">
-            <p class="text-xs">{title}</p>
-            <p class="font-bold">{message}</p>
-        </div>
-    "# }
 }

@@ -19,9 +19,9 @@ impl fmt::Display for ButtonColor {
         let class = match self {
             ButtonColor::Primary => "bg-black text-white dark:bg-white dark:text-black dark:focus-visible:outline-white",
             ButtonColor::Secondary => "bg-neutral-800 text-white focus-visible:outline-neutral-800 dark:bg-neutral-300 dark:text-black dark:focus-visible:outline-neutral-300",
-            ButtonColor::Alternate => "bg-neutral-50 text-neutral-900 focus-visible:outline-neutral-50 dark:bg-neutral-900 dark:text-white dark:focus-visible:outline-neutral-900",
+            ButtonColor::Alternate => "bg-neutral-50 text-neutral-900 focus-visible:outline-neutral-50 dark:bg-neutral-900  dark:focus-visible:outline-neutral-900",
             ButtonColor::Info => "bg-sky-500 text-white focus-visible:outline-sky-500 dark:bg-sky-500 dark:text-white dark:focus-visible:outline-sky-500",
-            ButtonColor::Success => "bg-green-500 focus-visible:outline-green-500 active:opacity-100 dark:bg-green-500 dark:text-white dark:focus-visible:outline-green-500",
+            ButtonColor::Success => "bg-green-500 text-white focus-visible:outline-green-500 active:opacity-100 dark:bg-green-500 dark:focus-visible:outline-green-500",
             ButtonColor::Warning => "bg-amber-500 text-white dark:bg-amber-500 dark:text-white dark:focus-visible:outline-amber-500",
             ButtonColor::Danger => "bg-red-500 text-white focus-visible:outline-red-500 dark:bg-red-500 dark:text-white dark:focus-visible:outline-red-500",
         };
