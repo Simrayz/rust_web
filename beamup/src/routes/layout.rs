@@ -23,7 +23,7 @@ pub fn title_fragment(title: &str) -> Template {
 
     rhtml! { r#"
         <head>
-            <link href="/assets/main.css" rel="stylesheet" />
+            <link href="/assets/main.css" rel="stylesheet" hx-p />
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link href="/assets/main.css" rel="stylesheet" />

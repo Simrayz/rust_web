@@ -98,12 +98,12 @@ pub async fn new_event_page(req: HxReq) -> impl IntoResponse {
                     <label for="location" class="w-fit pl-0.5 text-sm">Location</label>
                     <input id="location" required placeholder="Where is the event?" type="text" class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75 dark:border-neutral-700 dark:bg-neutral-900/50 dark:focus-visible:outline-white" name="location" />
                 </div>
-                <div class="flex items-center gap-4">
-                    <div class="flex-1 flex flex-col gap-1 text-neutral-600 dark:text-neutral-300">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="col-span-1 flex flex-col gap-1 text-neutral-600 dark:text-neutral-300">
                         <label for="date" class="w-fit pl-0.5 text-sm">Date</label>
                         <input id="date" name="date" required type="date" class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75 dark:border-neutral-700 dark:bg-neutral-900/50 dark:focus-visible:outline-white" />
                     </div>
-                    <div class="flex-1 flex flex-col gap-1 text-neutral-600 dark:text-neutral-300">
+                    <div class=" col-span-1 flex flex-col gap-1 text-neutral-600 dark:text-neutral-300">
                         <label for="time" class="w-fit pl-0.5 text-sm">Time</label>
                         <input id="time" name="time" required type="time" class="w-full rounded-md border border-neutral-300 bg-neutral-50 px-2 py-2 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black disabled:cursor-not-allowed disabled:opacity-75 dark:border-neutral-700 dark:bg-neutral-900/50 dark:focus-visible:outline-white" />
                     </div>
