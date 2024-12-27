@@ -7,19 +7,32 @@ pub fn base_html(content: Template) -> Template {
     rhtml! { r#"
         <!DOCTYPE html>
         <html>
-            <head>
-                <title>{APP_NAME}</title>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <link href="/assets/main.css" rel="stylesheet" />
-                <link href="https://rsms.me/inter/inter.css" rel="stylesheet" />
-                <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-                <script src="https://unpkg.com/htmx.org@2.0.3" integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq" crossorigin="anonymous"></script>
-            </head> 
-            <body class="bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col">
+            {title_fragment("")}
+            <body hx-ext="head-support" class="bg-gray-100 dark:bg-gray-900 min-h-screen flex flex-col">
                 {content}
             </body> 
         </html>
+    "# }
+}
+
+pub fn title_fragment(title: &str) -> Template {
+    let page_title = match title.len() {
+        0 => APP_NAME.to_string(),
+        _ => format!("{} ∙ {}", title, APP_NAME),
+    };
+
+    rhtml! { r#"
+        <head>
+            <link href="/assets/main.css" rel="stylesheet" />
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link href="/assets/main.css" rel="stylesheet" />
+            <link href="https://rsms.me/inter/inter.css" rel="stylesheet" />
+            <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+            <script src="https://unpkg.com/htmx.org@2.0.3" integrity="sha384-0895/pl2MU10Hqc6jd4RvrthNlDiE9U1tWmX7WRESftEDRosgxNsQG/Ze9YMRzHq" crossorigin="anonymous"></script>
+            <script src="https://unpkg.com/htmx-ext-head-support@2.0.1/head-support.js"></script>
+            <title>{page_title}</title>
+        </head>
     "# }
 }
 

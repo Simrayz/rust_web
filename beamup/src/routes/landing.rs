@@ -1,11 +1,13 @@
 use axum::response::IntoResponse;
 use rust_html::{rhtml, Template};
 
+use super::layout::title_fragment;
 use super::utils::{router_fragment_stack, HxReq, RouteOptions};
 use crate::constants::{APP_DESCRIPTION, APP_NAME};
 
 pub async fn landing_page(hx_req: HxReq) -> impl IntoResponse {
     let template: Template = rhtml! { r##"
+        {title_fragment("")}
         <div class="space-y-8">
             {hero_card()}
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-center">

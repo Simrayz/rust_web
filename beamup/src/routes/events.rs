@@ -6,11 +6,13 @@ use axum::{
 use chrono::{NaiveDate, NaiveDateTime, NaiveTime};
 use rust_html::{rhtml, Template};
 
+use super::layout::title_fragment;
 use super::utils::{router_fragment_stack, HxReq, RouteOptions};
 use crate::components::button::ButtonColor;
 
 pub async fn events_page(req: HxReq) -> impl IntoResponse {
     let template: Template = rhtml! { r#"
+        {title_fragment("Events")}
         <div class="space-y-4">
             <div class="flex items-center justify-between">
                 <h1 class="text-3xl">Events</h1>
@@ -72,6 +74,7 @@ pub async fn new_event_page(req: HxReq) -> impl IntoResponse {
     let response_container_id = format!("#{}", response_container);
 
     let template: Template = rhtml! { r#"
+        {title_fragment("New Event")}
         <div class="max-w-md space-y-2">
             <div id="{response_container}"></div>
             <form 
