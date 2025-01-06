@@ -6,13 +6,11 @@ use axum::{
 use chrono::{NaiveDate, NaiveDateTime, NaiveTime};
 use rust_html::{rhtml, Template};
 
-use super::layout::title_fragment;
-use super::utils::{router_fragment_stack, HxReq, RouteOptions};
+use super::{layout::main_layout, utils::RouteOptions};
 use crate::components::button::ButtonColor;
 
-pub async fn events_page(req: HxReq) -> impl IntoResponse {
+pub async fn events_page() -> impl IntoResponse {
     let template: Template = rhtml! { r#"
-        {title_fragment("Events")}
         <div class="space-y-4">
             <div class="flex items-center justify-between">
                 <h1 class="text-3xl">Events</h1>
@@ -60,21 +58,19 @@ pub async fn events_page(req: HxReq) -> impl IntoResponse {
 
     "# };
 
-    router_fragment_stack(
-        req,
-        RouteOptions {
-            fragment: template,
-            target: "/events",
-        },
-    )
+    main_layout(RouteOptions {
+        content: template,
+        title: "Events",
+        path: "/events",
+        ..Default::default()
+    })
 }
 
-pub async fn new_event_page(req: HxReq) -> impl IntoResponse {
+pub async fn new_event_page() -> impl IntoResponse {
     let response_container = "response-container";
     let response_container_id = format!("#{}", response_container);
 
     let template: Template = rhtml! { r#"
-        {title_fragment("New Event")}
         <div class="max-w-md space-y-2">
             <div id="{response_container}"></div>
             <form 
@@ -120,13 +116,12 @@ pub async fn new_event_page(req: HxReq) -> impl IntoResponse {
         </div>
     "# };
 
-    router_fragment_stack(
-        req,
-        RouteOptions {
-            fragment: template,
-            target: "/events/new",
-        },
-    )
+    main_layout(RouteOptions {
+        content: template,
+        title: "New Event",
+        path: "/events/new",
+        ..Default::default()
+    })
 }
 
 #[derive(serde::Deserialize, Debug)]
@@ -172,16 +167,15 @@ pub async fn create_event_handler(Form(event): Form<EventRequest>) -> impl IntoR
     response
 }
 
-pub async fn edit_event_page(Path(id): Path<String>, req: HxReq) -> impl IntoResponse {
+pub async fn edit_event_page(Path(id): Path<String>) -> impl IntoResponse {
     let template: Template = rhtml! { r#"
         <h1 class="text-3xl">Edit Event {id}</h1>
     "# };
 
-    router_fragment_stack(
-        req,
-        RouteOptions {
-            fragment: template,
-            target: "/events/edit/{id}",
-        },
-    )
+    main_layout(RouteOptions {
+        content: template,
+        title: "Edit Event",
+        path: "/events/edit/{id}",
+        ..Default::default()
+    })
 }

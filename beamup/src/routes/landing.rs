@@ -1,13 +1,11 @@
 use axum::response::IntoResponse;
 use rust_html::{rhtml, Template};
 
-use super::layout::title_fragment;
-use super::utils::{router_fragment_stack, HxReq, RouteOptions};
+use super::{layout::main_layout, utils::RouteOptions};
 use crate::constants::{APP_DESCRIPTION, APP_NAME};
 
-pub async fn landing_page(hx_req: HxReq) -> impl IntoResponse {
+pub async fn landing_page() -> impl IntoResponse {
     let template: Template = rhtml! { r##"
-        {title_fragment("")}
         <div class="space-y-8">
             {hero_card()}
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-center">
@@ -33,13 +31,13 @@ pub async fn landing_page(hx_req: HxReq) -> impl IntoResponse {
         </div>
     "## };
 
-    router_fragment_stack(
-        hx_req,
-        RouteOptions {
-            fragment: template,
-            target: "/",
-        },
-    )
+    main_layout(RouteOptions {
+        content: template,
+        title: "",
+        path: "/",
+        exact: true,
+        ..Default::default()
+    })
 }
 
 fn hero_card() -> Template {
@@ -78,7 +76,7 @@ fn link_card(text: &str, href: &str) -> Template {
         "hover:dark:bg-indigo-700",
     ]);
     rhtml! { r#"
-        <a href="{href}" class="{styles}">
+        <a href="{href}" class="{styles}" hx-push-url="true">
             <h2 class="text-xl">{text}</h2>
         </a>
     "# }

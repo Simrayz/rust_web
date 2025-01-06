@@ -5,7 +5,7 @@ use axum::{
 };
 use beamup::routes::{
     events::{create_event_handler, edit_event_page, events_page, new_event_page},
-    home_page, landing_page,
+    landing_page,
 };
 use tower_http::{
     services::ServeDir,
@@ -36,7 +36,6 @@ async fn main() -> miette::Result<()> {
         // `GET /` goes to `root`
         .nest("/api", api_router)
         .route("/", get(landing_page))
-        .route("/home", get(home_page))
         .route("/events", get(events_page))
         .route("/events/new", get(new_event_page))
         .route("/events/edit/:id", get(edit_event_page))
