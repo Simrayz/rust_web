@@ -50,8 +50,8 @@ async fn main() -> miette::Result<()> {
                 .on_response(trace::DefaultOnResponse::new().level(Level::INFO)),
         );
 
-    // run our app with hyper, listening globally on port 4000
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:4000").await.unwrap();
+    // run our app with hyper, listening globally on port 8000
+    let listener = tokio::net::TcpListener::bind("0.0.0.0:8000").await.unwrap();
     axum::serve(listener, app).await.unwrap();
 
     Ok(())
